@@ -1,4 +1,5 @@
-import { TodoType } from "../App";
+// import { TodoType } from "../App";
+import { TodoType } from "../Todo/TodoReducer";
 import TodoItem from "../ListItem/TodoItem";
 import styles from "./TodoList.module.css";
 
