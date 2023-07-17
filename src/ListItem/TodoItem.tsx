@@ -1,35 +1,55 @@
 import styles from "./TodoItem.module.css";
 import { BsCheckCircle } from "react-icons/bs";
 import { IoIosRemoveCircleOutline } from "react-icons/io";
+import { useTodoDispatch } from "../Todo/TodoProvider";
 
 interface TodoItemProps {
   id: number;
   text: string;
-  isChecked: boolean
-  onToggleClick: (id:number) => void
-  onRemoveClick: (id:number) => void
+  isChecked: boolean;
 }
 
 const TodoItem = (props: TodoItemProps) => {
+  const todoDispatch = useTodoDispatch();
+
   const handleToggleClick = () => {
-    props.onToggleClick(props.id)
-  }
+    todoDispatch({
+      type: "checked",
+      payload: {
+        id: props.id,
+      },
+    });
+  };
 
   const handleRomoveClick = () => {
-    props.onRemoveClick(props.id)
-  }
+    todoDispatch({
+      type: "remove",
+      payload: {
+        id: props.id,
+      },
+    });
+  };
 
   return (
     <li className={styles.container}>
       <BsCheckCircle
         className={[
           styles.checkIcon,
-          `${props.isChecked ? styles.checkedCircleIcon : styles.unCheckedCircleIcon}`,
+          `${
+            props.isChecked
+              ? styles.checkedCircleIcon
+              : styles.unCheckedCircleIcon
+          }`,
         ].join(" ")}
         onClick={handleToggleClick}
       />
-      <span className={props.isChecked ? styles.lineThrough : ''}>{props.text}</span>
-      <IoIosRemoveCircleOutline className={styles.removeIcon} onClick={handleRomoveClick}/>
+      <span className={props.isChecked ? styles.lineThrough : ""}>
+        {props.text}
+      </span>
+      <IoIosRemoveCircleOutline
+        className={styles.removeIcon}
+        onClick={handleRomoveClick}
+      />
     </li>
   );
 };
