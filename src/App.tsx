@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useReducer, useState } from "react";
 import "./App.css";
 import Divider from "./Divider/Divider";
 import TodoHeader from "./Header/TodoHeader";
@@ -15,27 +15,31 @@ export type TodoType = {
 };
 
 function App() {
-  const [text, setText] = useState("");
-  // const [inputState, inputDispatch] = useReducer(todoInputReducer, {text: ''})
+  const [inputState, inputDispatch]  = useReducer(todoInputReducer, {text: ''});
   const [todos, setTodos] = useState<TodoType[]>([]);
 
   const handleTextChange = (text: string) => {
-    setText(text);
+    inputDispatch({
+      type:'change',
+      payload: text
+    })
   };
 
   const handleSubmit = () => {
-    if(!text) {
+    if(!inputState.text) {
       return;
     }
 
     const newTodos = todos.concat({
       id: Date.now(),
-      text: text,
+      text: inputState.text,
       isChecked: false,
     });
 
     setTodos(newTodos);
-    setText("");
+    inputDispatch({
+      type: 'clear'
+    });
   };
 
   const handleRemove = (id: number) => {
@@ -86,7 +90,7 @@ function App() {
     <main className="App">
       <TodoHeader count={todos.filter((todo) => !todo.isChecked).length} />
       <TodoInput
-        text={text}
+        text={inputState.text}
         onTextChange={handleTextChange}
         onSubmit={handleSubmit}
       />

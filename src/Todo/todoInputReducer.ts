@@ -1,24 +1,26 @@
 type TodoInputStateType = {
-  text: string
-}
+  text: string;
+};
 
 type TodoInputActionType = {
-  type: 'change'
+  type: "change"
   payload: string
-} | {
-  type: 'clear'
-}
+}  | {
+  type: "clear"
+};
 
-export const todoInputReducer = (state:TodoInputStateType, action:TodoInputActionType) => {
-  switch(action.type) {
-    case 'change':
+export const todoInputReducer = (
+  state: TodoInputStateType,
+  action: TodoInputActionType
+) => {
+  switch (action.type) {
+    case "change":
       return {
-        text: action.payload
-      }
-      case 'clear':
-        return {
-          text: ''
-        }
+        text: action.payload,
+      };
+    case "clear":
+      return {
+        text: "",
+      };
   }
-  return ''
-}
+};
