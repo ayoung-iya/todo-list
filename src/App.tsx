@@ -8,8 +8,6 @@ import TodoListArea from "./List/TodoListArea";
 import TodoProvider from "./Todo/TodoProvider";
 
 function App() {
-  
-
   return (
     <main className="App">
       <TodoProvider>
